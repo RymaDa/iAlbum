@@ -9,7 +9,7 @@ import com.rym.ialbum.R
 import com.rym.ialbum.data.models.Album
 import com.rym.ialbum.presentation.viewmodels.AlbumViewModel
 
-class AlbumAdapter(private val listener: OnAlbumClickListener,
+class AlbumAdapter( val listener: OnAlbumClickListener,
                    private val viewModel: AlbumViewModel): RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
     //private var albums: List<Album> = emptyList()

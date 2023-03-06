@@ -6,6 +6,6 @@
         android:id="@+id/album_title_tv"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        />
+        android:text="test" />
 
 </LinearLayout>

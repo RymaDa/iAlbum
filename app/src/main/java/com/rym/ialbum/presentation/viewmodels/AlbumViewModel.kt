@@ -13,8 +13,8 @@ import kotlinx.coroutines.launch
 class AlbumViewModel(private val albumUsecase: IAlbumsUseCase): ViewModel() {
 
     val _albums = MutableStateFlow<Resource<ArrayList<Album>>>(Resource.init())
-    val abums : StateFlow<Resource<ArrayList<Album>>>
-        get() = _albums
+    val albums : ArrayList<Album>
+        get() = _albums.value.data ?: ArrayList()
 
     fun getRemoteAlbums(){
         viewModelScope.launch{

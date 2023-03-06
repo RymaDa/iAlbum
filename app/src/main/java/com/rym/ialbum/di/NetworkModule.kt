@@ -1,6 +1,7 @@
 package com.rym.ialbum.di
 
 import com.rym.ialbum.data.remote.AlbumApiService
+import com.rym.ialbum.utils.Contants.Companion.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -22,7 +23,7 @@ val networkModule = module {
     single {
         Retrofit.Builder()
             .client(get<OkHttpClient>())
-            .baseUrl("")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

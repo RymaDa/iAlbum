@@ -1,19 +1,25 @@
 package com.rym.ialbum.presentation.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import com.rym.ialbum.R
 import com.rym.ialbum.data.models.Album
 import com.rym.ialbum.presentation.viewmodels.AlbumViewModel
 
-class AlbumAdapter( val listener: OnAlbumClickListener,
-                   private val viewModel: AlbumViewModel): RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
-
-    //private var albums: List<Album> = emptyList()
-
+class AlbumAdapter(
+    private val context: Context,
+    val listener: OnAlbumClickListener,
+    private val viewModel: AlbumViewModel): RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
 
         val binding =
@@ -33,11 +39,16 @@ class AlbumAdapter( val listener: OnAlbumClickListener,
     }
 
     inner class AlbumViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val title: TextView = itemView.findViewById(R.id.album_title_tv)
+        val title: TextView = itemView.findViewById(R.id.titleTextView)
+        val img: ImageView = itemView.findViewById(R.id.imageView)
+
+        @SuppressLint("ResourceAsColor")
         fun bind(album: Album) {
             title.text = album.title
-            //binding.albumActor.text = album.actor
-            // bind other album properties as needed
+            img.setBackgroundColor(R.color.purple_200)
+            Glide.with(context)
+                .load(album.thumbnailUrl)
+                .into(img)
         }
     }
 

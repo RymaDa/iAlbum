@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rym.ialbum.data.models.Album
 import com.rym.ialbum.presentation.adapters.AlbumAdapter
+import com.rym.ialbum.utils.NetworkUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,10 +29,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setypCollectedData()
         fetchData()
+
     }
 
     private fun fetchData() {
-        vm.getRemoteAlbums()
+        if (NetworkUtils.isNetworkConnected(this))
+            vm.getRemoteAlbums()
+        else
+            vm.getLocalAlbums()
+
     }
 
     private fun setypCollectedData() {
@@ -50,12 +56,11 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-
     private fun setupRecyclerViewData() {
         val rvAlbums: RecyclerView = findViewById(R.id.album_recycler_view)
 
         // création de l'adapter
-        albumAdapter = AlbumAdapter(object : AlbumAdapter.OnAlbumClickListener {
+        albumAdapter = AlbumAdapter(this, object : AlbumAdapter.OnAlbumClickListener {
             override fun onAlbumClick(album: Album) {
                 // traiter l'événement de clic sur un album
             }
@@ -66,5 +71,9 @@ class MainActivity : AppCompatActivity() {
             adapter = albumAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
         }
+
+        vm.insertAlbums(vm.albums)
+
+
     }
 }

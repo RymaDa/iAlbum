@@ -5,5 +5,7 @@ import com.rym.ialbum.domain.models.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface IAlbumRepository {
-    suspend fun getAlbums(): Flow<Resource<ArrayList<Album>>>
+    suspend fun getRemoteAlbums(): Flow<Resource<ArrayList<Album>>>
+    suspend fun getLocalAlbums(): Flow<Resource<ArrayList<Album>>>
+    suspend fun insertAlbums(albums: ArrayList<Album>)
 }

@@ -1,9 +1,12 @@
 package com.rym.ialbum.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity(tableName = "albums")
 data class Album(
-    var id : Int?,
+    @PrimaryKey var id : Int?,
     var albumId: Int?,
     var title: String?,
     var url: String?,

@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rym.ialbum.data.models.Album
 import com.rym.ialbum.domain.models.Resource
-import com.rym.ialbum.domain.usecases.IAlbumsUseCase
+import com.rym.ialbum.domain.usecases.IGetAlbumsUseCase
+import com.rym.ialbum.domain.usecases.IGetLocalAlbumsUseCase
+import com.rym.ialbum.domain.usecases.IInsertAlbumsUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class AlbumViewModel(private val albumUsecase: IAlbumsUseCase): ViewModel() {
+class AlbumViewModel(private val albumUsecase: IGetAlbumsUseCase,
+                     private val insertAlbumUsecase: IInsertAlbumsUseCase,
+                     private val getLocalAlbumsUsecase: IGetLocalAlbumsUseCase,
+): ViewModel() {
 
     val _albums = MutableStateFlow<Resource<ArrayList<Album>>>(Resource.init())
     val albums : ArrayList<Album>
@@ -18,7 +21,23 @@ class AlbumViewModel(private val albumUsecase: IAlbumsUseCase): ViewModel() {
 
     fun getRemoteAlbums(){
         viewModelScope.launch{
-            albumUsecase.getAlbums().collect{
+            albumUsecase.getRemoteAlbums().collect{
+                _albums.value = it
+            }
+        }
+    }
+    fun insertAlbums(albums: ArrayList<Album>){
+        viewModelScope.launch{
+            insertAlbumUsecase.insertAlbums(albums)
+        }
+    }
+    val _albumsl = MutableStateFlow<Resource<ArrayList<Album>>>(Resource.init())
+    val albumsl : ArrayList<Album>
+        get() = _albumsl.value.data ?: ArrayList()
+
+    fun getLocalAlbums(){
+        viewModelScope.launch{
+            getLocalAlbumsUsecase.getLocalAlbums().collect{
                 _albums.value = it
             }
         }

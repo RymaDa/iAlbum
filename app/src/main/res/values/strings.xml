@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">iAlbum</string>
+    <string name="empty_data">Aucun élément trouvé</string>
+    <string name="search_hint">Rechercher</string>
+    <string name="inprogress_text">Traitement en cours ...</string>
 </resources>

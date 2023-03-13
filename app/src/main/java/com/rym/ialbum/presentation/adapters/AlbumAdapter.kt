@@ -2,7 +2,6 @@ package com.rym.ialbum.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import com.rym.ialbum.R
 import com.rym.ialbum.data.models.Album
 import com.rym.ialbum.presentation.viewmodels.AlbumViewModel
 
 class AlbumAdapter(
     private val context: Context,
+    val data : ArrayList<Album>,
     val listener: OnAlbumClickListener,
     private val viewModel: AlbumViewModel): RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
@@ -29,13 +27,13 @@ class AlbumAdapter(
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        val album = viewModel.albums[position]
+        val album = data[position]
         holder.bind(album)
         holder.itemView.setOnClickListener { listener.onAlbumClick(album) }
     }
 
     override fun getItemCount(): Int {
-        return viewModel.albums.size
+        return data.size
     }
 
     inner class AlbumViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {

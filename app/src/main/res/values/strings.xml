@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">iAlbum</string>
     <string name="empty_data">Aucun élément trouvé</string>
-    <string name="search_hint">Rechercher</string>
+    <string name="search_hint">Chercher par : num d\'album ou titre </string>
     <string name="inprogress_text">Traitement en cours ...</string>
+    <string name="no_internet_msg"> Vous n\'êtes pas connecté. Vérifiez votre connexion.</string>
 </resources>

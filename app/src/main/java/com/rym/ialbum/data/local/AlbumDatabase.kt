@@ -25,7 +25,6 @@ abstract class AlbumDatabase : RoomDatabase() {
 
         private fun createDatabase(context: Context) =
             Room.databaseBuilder(context.applicationContext, AlbumDatabase::class.java, "AlbumDatabase.db")
-                //.createFromAsset("database/ialbumapp.db")
                 .build()
     }
 

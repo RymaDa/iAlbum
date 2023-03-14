@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             vm._albums.collectLatest {
                 println("Albums data --> ${Gson().toJson(it)}")
+                println("Albums data --> ${Gson().toJson(it.data?.size)}")
                 when(it.status){
                     Resource.Status.LOADING -> {
                         swipeRefreshLayout.isRefreshing = true
@@ -96,27 +97,28 @@ class MainActivity : AppCompatActivity() {
     }
     private fun setupRecyclerViewData(data : ArrayList<Album>) {
         if (data.size>0){
-            album_data_state.visibility = View.GONE
-            album_recycler_view.visibility = View.VISIBLE
-            albumAdapter = AlbumAdapter(this, data,object : AlbumAdapter.OnAlbumClickListener {
-                override fun onAlbumClick(album: Album) {
-                }
-            }, vm)
-            album_recycler_view.apply {
-                adapter = albumAdapter
-                layoutManager = LinearLayoutManager(this@MainActivity)
-            }
             vm.insertAlbums(vm.albums)
+           initRecyclerView(data)
             swipeRefreshLayout.isRefreshing = false
         }else{
             album_data_state.visibility = View.VISIBLE
             album_data_state.setText(R.string.empty_data)
             album_recycler_view.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
-
         }
 
+    }
 
-
+    private fun initRecyclerView(data: ArrayList<Album>) {
+        album_data_state.visibility = View.GONE
+        album_recycler_view.visibility = View.VISIBLE
+        albumAdapter = AlbumAdapter(this, data,object : AlbumAdapter.OnAlbumClickListener {
+            override fun onAlbumClick(album: Album) {
+            }
+        }, vm)
+        album_recycler_view.apply {
+            adapter = albumAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
     }
 }

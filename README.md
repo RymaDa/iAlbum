@@ -22,3 +22,9 @@ L'application est structurée en utilisant une approche de Clean Architecture, q
 1. Cloner le projet depuis GitHub en utilisant la commande 'https://github.com/RymaDa/iAlbum.git'
 2. Ouvrir le projet dans Android Studio
 3. Construire et exécuter l'application sur un émulateur ou un périphérique Android
+
+## Tests
+
+Les tests unitaires sont écrits en utilisant JUnit. 
+Ils sont situés dans le dossier /app/src/test/java/com/rym/ialbum/
+Les tests sont exécutés en utilisant l'option ./gradlew test depuis la ligne de commande ou en sélectionnant l'option de menu Run all tests dans Android Studio.
